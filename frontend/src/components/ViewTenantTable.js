@@ -1,4 +1,3 @@
-// src/components/ViewTenantTable.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import EditTenantForm from './EditTenantForm'; // Importando o componente de edição
@@ -64,17 +63,25 @@ const ViewTenantTable = () => {
 
   const saveEditedTenant = async () => {
     try {
-      await axios.put(`${process.env.REACT_APP_API_URL}/tenants/${editingTenant.id}`, editedTenant);
+      if (!editedTenant.name || !editedTenant.cpf || !editedTenant.kitnetSize || !editedTenant.rentValue) {
+        alert("Por favor, preencha todos os campos.");
+        return;
+      }
 
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/tenants`, editedTenant);
+
+      const updatedTenant = response.data;
       const updatedTenants = tenants.map((tenant) =>
-        tenant.id === editingTenant.id ? editedTenant : tenant
+        tenant.cpf === updatedTenant.cpf ? updatedTenant : tenant
       );
       setTenants(updatedTenants);
       setFilteredTenants(updatedTenants);
 
-      setIsModalOpen(false); // Fecha o modal ao salvar
+      alert('Inquilino atualizado com sucesso!');
+      closeEditModal(); // Fecha o modal de edição
     } catch (error) {
       console.error('Erro ao atualizar os dados do inquilino:', error);
+      alert("Erro ao salvar as informações.");
     }
   };
 
@@ -100,7 +107,6 @@ const ViewTenantTable = () => {
     <div className="table-container">
       <h2>Visualizar Inquilinos</h2>
 
-      {/* Exibe os filtros e a tabela apenas quando o modal não está aberto */}
       {!isModalOpen && (
         <div className="filters">
           <input
@@ -117,7 +123,7 @@ const ViewTenantTable = () => {
             <option value="grande">Grande</option>
           </select>
           <select name="isInadimplent" value={filters.isInadimplent} onChange={handleFilterChange}>
-            <option value="">Filtrar por status de inadimplência</option>
+            <option value="">Filtrar por inadimplência</option>
             <option value="true">Inadimplente</option>
             <option value="false">Adimplente</option>
           </select>
@@ -125,7 +131,6 @@ const ViewTenantTable = () => {
         </div>
       )}
 
-      {/* Exibe a tabela apenas quando o modal de edição não está aberto */}
       {!isModalOpen && (
         <table className="tenant-table">
           <thead>
@@ -139,29 +144,27 @@ const ViewTenantTable = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredTenants.length > 0 ? (
-              filteredTenants.map((tenant) => (
-                <tr key={tenant.id}>
-                  <td>{tenant.name}</td>
-                  <td>{tenant.cpf}</td>
-                  <td>{tenant.kitnetSize}</td>
-                  <td>{tenant.isInadimplent ? 'Inadimplente' : 'Adimplente'}</td>
-                  <td>{tenant.rentValue}</td>
-                  <td>
-                    <button onClick={() => openEditModal(tenant)}>Editar</button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="6">Nenhum inquilino encontrado</td>
+            {filteredTenants.map((tenant) => (
+              <tr key={tenant.cpf}>
+                <td>{tenant.name}</td>
+                <td>{tenant.cpf}</td>
+                <td>{tenant.kitnetSize}</td>
+                <td>{tenant.isInadimplent ? 'Inadimplente' : 'Adimplente'}</td>
+                <td>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(tenant.rentValue)}
+                </td>
+                <td>
+                  <button onClick={() => openEditModal(tenant)}>Editar</button>
+                </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </table>
       )}
 
-      {/* Modal de edição */}
       {isModalOpen && (
         <EditTenantForm
           editedTenant={editedTenant}

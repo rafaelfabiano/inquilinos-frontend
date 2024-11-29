@@ -1,74 +1,74 @@
 import React from 'react';
-import './styles/Form.css';
 
 const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, closeEditModal }) => {
-  return (
-    <div className="form-container"> {/* Classe de container para aplicar os estilos */}
-      <h2>Editar Inquilino</h2> {/* Usando o título com a classe de estilo */}
+  const handleRentValueChange = (e) => {
+    // Substitui a vírgula por ponto
+    const value = e.target.value.replace(',', '.');
+    
+    // Atualiza o valor do aluguel
+    handleEditChange(e, value);
+  };
 
-      <form>
-        <div className="form-group"> {/* Grupo de formulário */}
-          <label>Nome:</label>
+  return (
+    <div className="form-container">
+      <h2>Editar Inquilino</h2>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          saveEditedTenant(); // Chama a função para salvar as alterações
+        }}
+      >
+        <div className="form-group">
+          <label htmlFor="name">Nome:</label>
           <input
             type="text"
+            id="name"
             name="name"
             value={editedTenant.name}
             onChange={handleEditChange}
+            required
           />
         </div>
-
         <div className="form-group">
-          <label>CPF:</label>
+          <label htmlFor="cpf">CPF:</label>
           <input
             type="text"
+            id="cpf"
             name="cpf"
             value={editedTenant.cpf}
             onChange={handleEditChange}
+            required
+            disabled
           />
         </div>
-
         <div className="form-group">
-          <label>Tamanho do Kitnet:</label>
+          <label htmlFor="kitnetSize">Tamanho do Kitnet:</label>
           <select
+            id="kitnetSize"
             name="kitnetSize"
             value={editedTenant.kitnetSize}
             onChange={handleEditChange}
+            required
           >
             <option value="pequeno">Pequeno</option>
             <option value="médio">Médio</option>
             <option value="grande">Grande</option>
           </select>
         </div>
-
         <div className="form-group">
-          <label>Status de Inadimplência:</label>
-          <select
-            name="isInadimplent"
-            value={editedTenant.isInadimplent}
-            onChange={handleEditChange}
-          >
-            <option value={true}>Inadimplente</option>
-            <option value={false}>Adimplente</option>
-          </select>
-        </div>
-
-        <div className="form-group">
-          <label>Valor do Aluguel:</label>
+          <label htmlFor="rentValue">Valor do Aluguel:</label>
           <input
-            type="number"
+            type="text" // Usando "text" para permitir vírgulas
+            id="rentValue"
             name="rentValue"
             value={editedTenant.rentValue}
-            onChange={handleEditChange}
+            onChange={handleRentValueChange} // Usando a função para lidar com a vírgula
+            required
           />
         </div>
-
-        <div className="modal-buttons"> {/* Botões de ação com estilos */}
-          <button type="button" className="btn-submit" onClick={saveEditedTenant}>
-            Salvar
-          </button>
-          <button type="button" className="btn-secondary" onClick={closeEditModal}>
-            Cancelar
-          </button>
+        <div className="form-group">
+          <button type="submit">Salvar</button>
+          <button type="button" onClick={closeEditModal}>Cancelar</button>
         </div>
       </form>
     </div>

@@ -32,7 +32,6 @@ function Dashboard() {
           {renderContent()} {/* Exibe o conteúdo baseado na opção */}
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

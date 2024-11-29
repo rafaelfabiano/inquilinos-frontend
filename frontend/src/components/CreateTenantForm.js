@@ -18,10 +18,20 @@ const CreateTenantForm = () => {
   // Função para lidar com a mudança nos campos do formulário
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : value
-    });
+
+    if (name === 'rentValue') {
+      // Substitui a vírgula por ponto para o cálculo correto
+      const formattedValue = value.replace(',', '.');
+      setFormData({
+        ...formData,
+        [name]: formattedValue
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: type === 'checkbox' ? checked : value
+      });
+    }
   };
 
   // Função para lidar com o envio do formulário
@@ -133,7 +143,7 @@ const CreateTenantForm = () => {
         <div className="form-group">
           <label htmlFor="rentValue">Valor do Aluguel:</label>
           <input
-            type="number"
+            type="text"  // Alterado para 'text' para permitir vírgula
             id="rentValue"
             name="rentValue"
             value={formData.rentValue}

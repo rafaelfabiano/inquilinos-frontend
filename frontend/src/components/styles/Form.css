@@ -2,7 +2,7 @@
 .form-container {
   max-width: 400px;
   margin: 50px auto;
-  padding: 20px;
+  padding: 20px 30px; /* Aumentei o padding nas laterais para garantir espaçamento */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -19,7 +19,7 @@
 
 /* Grupos do Formulário */
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 20px; /* Aumentei o espaçamento entre os campos */
 }
 
 .form-group label {
@@ -31,10 +31,11 @@
 
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 12px;  /* Aumentei o padding nos campos para dar mais espaço dentro */
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  box-sizing: border-box; /* Garante que o padding não afete a largura do campo */
 }
 
 .form-group input:focus {
@@ -46,7 +47,7 @@
 /* Botão Principal */
 .btn-submit {
   width: 100%;
-  padding: 10px;
+  padding: 12px; /* Aumentei o padding do botão */
   background-color: #007bff;
   border: none;
   border-radius: 4px;
@@ -63,7 +64,7 @@
 /* Botão Secundário */
 .btn-secondary {
   width: 100%;
-  padding: 10px;
+  padding: 12px; /* Aumentei o padding do botão */
   background-color: #6c757d;
   border: none;
   border-radius: 4px;

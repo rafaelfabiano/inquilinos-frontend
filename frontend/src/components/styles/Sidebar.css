@@ -1,0 +1,89 @@
+/* Sidebar.css */
+
+/* Container da sidebar */
+.sidebar {
+  height: calc(100vh - 60px); /* A sidebar ocupa o restante da tela abaixo do header */
+  width: 200px; /* Largura da sidebar */
+  background-color: #232628; /* Cor de fundo da sidebar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: fixed; /* Sidebar não deve ter margin, vai se ajustar ao lado esquerdo */
+  top: 90px; /* Começa 60px abaixo do header */
+  left: 0; /* Alinha a sidebar ao lado esquerdo da tela */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  transition: width 0.3s ease; /* Transição suave para a largura */
+  margin: 0; /* Garante que não haja margem */
+  padding: 0; /* Garante que não haja padding extra */
+}
+
+/* Estilo dos botões da sidebar */
+.sidebar-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #ecf0f1;
+  background-color: transparent;
+  border: none;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o conteúdo (ícone ou texto) */
+  padding-left: 20px;
+  cursor: pointer;
+  border-bottom: 1px solid #34495e;
+  position: relative;
+}
+
+/* Estilo do ícone */
+.sidebar-icon {
+  font-size: 1.5rem;
+  transition: opacity 0.3s ease; /* Transição suave */
+}
+
+/* Texto do item da sidebar */
+.sidebar-text {
+  display: none; /* Inicialmente oculto */
+  font-size: 1rem;
+  color: #ecf0f1;
+  white-space: nowrap;
+  padding-left: 10px;
+  transition: opacity 0.3s ease; /* Transição suave */
+}
+
+/* Quando o ícone for hover, exibe o texto e esconde o ícone */
+.sidebar-button:hover .sidebar-icon {
+  opacity: 1; /* Torna o ícone invisível */
+}
+
+.sidebar-button:hover .sidebar-text {
+  display: inline-block;
+  opacity: 1; /* Exibe o texto */
+}
+.sidebar-button.active .sidebar-text {
+    display: inline-block;
+    opacity: 1; /* Exibe o texto */
+  }
+
+/* Efeito de hover nos botões */
+.sidebar-button:hover {
+  background-color: #00b7bd81;
+  color: #fff;
+}
+
+/* Botão ativo (se houver) */
+.sidebar-button.active {
+  background-color: #00b7bd;
+  color: white;
+}
+
+/* Remover borda inferior do último item */
+.sidebar-button:last-child {
+  border-bottom: none;
+}
+
+/* Opcional: Adicionar algum espaçamento entre os itens */
+.sidebar-item {
+  width: 100%;
+}

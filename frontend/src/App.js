@@ -15,7 +15,6 @@ function App() {
           <Route path="/" element={<Login />} /> {/* Página inicial com login */}
           <Route path="/dashboard" element={<Dashboard />} /> {/* Dashboard */}
         </Routes>
-        <Footer /> {/* Rodapé visível em todas as rotas */}
       </div>
     </Router>
   );
