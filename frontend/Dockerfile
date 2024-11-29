@@ -1,32 +1,20 @@
-# Etapa 1: Usando Node.js para construir o aplicativo
-FROM node:22.11.0 AS build
+# Usar a imagem oficial do Node.js como base
+FROM node:22.11.0
 
 # Definir o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copiar os arquivos package.json e package-lock.json para o diretório de trabalho
+# Copiar os arquivos de dependência package.json e package-lock.json para o contêiner
 COPY package*.json ./
 
-# Adicionar a dependência necessária explicitamente
-RUN npm install @babel/plugin-proposal-private-property-in-object --save-dev
-
-# Instalar as dependências do projeto
+# Instalar as dependências
 RUN npm install
 
-# Copiar todo o código-fonte da aplicação para o contêiner
+# Copiar o restante do código-fonte para dentro do contêiner
 COPY . .
 
-# Construir a aplicação React
-RUN npm run build
+# Expor a porta 3000, que é a porta padrão do React
+EXPOSE 3000
 
-# Etapa 2: Usando Nginx para servir a aplicação construída
-FROM nginx:alpine
-
-# Copiar os arquivos de build da etapa anterior para o diretório do Nginx
-COPY --from=build /app/build /usr/share/nginx/html
-
-# Expor a porta 80 para que o Nginx possa servir a aplicação
-EXPOSE 80
-
-# Iniciar o Nginx no contêiner
-CMD ["nginx", "-g", "daemon off;"]
+# Definir o comando para rodar a aplicação em modo de desenvolvimento
+CMD ["npm", "start"]
