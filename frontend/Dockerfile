@@ -1,5 +1,5 @@
 # Etapa 1: Usando Node.js para construir o aplicativo
-FROM node:18 AS build
+FROM node:22.11.0 AS build
 
 # Definir o diretório de trabalho dentro do contêiner
 WORKDIR /app
