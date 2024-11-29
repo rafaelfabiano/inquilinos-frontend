@@ -1,0 +1,34 @@
+# Node.js
+node_modules/
+
+# Dependências do NPM, geradas na instalação.
+yarn.lock
+
+# Diretórios de build do React
+build/
+
+# Arquivos de log
+*.log
+
+# Diretórios de cache
+.cache/
+
+# Arquivos de configuração do editor (ex: VSCode, Sublime, etc.)
+.vscode/
+.idea/
+
+# Ambiente de execução local (para variáveis de ambiente como JWT_SECRET)
+.env
+
+# Arquivos de banco de dados locais, como o MongoDB
+*.db
+*.sqlite
+
+# Arquivos gerados por sistemas operacionais
+.DS_Store
+Thumbs.db
+
+# Outras configurações que podem ser específicas do seu projeto
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
