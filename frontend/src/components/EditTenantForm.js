@@ -1,11 +1,12 @@
 import React from 'react';
 
 const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, closeEditModal }) => {
+  // Função para tratar a mudança no valor do aluguel (para formatar corretamente o valor)
   const handleRentValueChange = (e) => {
-    // Substitui a vírgula por ponto
+    // Substitui a vírgula por ponto para garantir que o valor seja formatado corretamente
     const value = e.target.value.replace(',', '.');
     
-    // Atualiza o valor do aluguel
+    // Atualiza o valor do aluguel no estado do componente
     handleEditChange(e, value);
   };
 
@@ -14,8 +15,8 @@ const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, clos
       <h2>Editar Inquilino</h2>
       <form
         onSubmit={(e) => {
-          e.preventDefault();
-          saveEditedTenant(); // Chama a função para salvar as alterações
+          e.preventDefault(); // Impede o comportamento padrão de recarregar a página
+          saveEditedTenant(); // Chama a função que já foi implementada para salvar as alterações
         }}
       >
         <div className="form-group">
@@ -25,7 +26,7 @@ const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, clos
             id="name"
             name="name"
             value={editedTenant.name}
-            onChange={handleEditChange}
+            onChange={handleEditChange} // Função que lida com as mudanças nos inputs
             required
           />
         </div>
@@ -36,9 +37,9 @@ const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, clos
             id="cpf"
             name="cpf"
             value={editedTenant.cpf}
-            onChange={handleEditChange}
+            onChange={handleEditChange} // Função que lida com as mudanças nos inputs
             required
-            disabled
+            disabled // O campo CPF é desabilitado porque não podemos editar
           />
         </div>
         <div className="form-group">
@@ -47,7 +48,7 @@ const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, clos
             id="kitnetSize"
             name="kitnetSize"
             value={editedTenant.kitnetSize}
-            onChange={handleEditChange}
+            onChange={handleEditChange} // Função que lida com as mudanças nos inputs
             required
           >
             <option value="pequeno">Pequeno</option>

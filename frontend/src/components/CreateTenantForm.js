@@ -48,11 +48,25 @@ const CreateTenantForm = () => {
       return;
     }
 
+    // Obtendo o token do localStorage
+    const token = localStorage.getItem('token');
+
+    // Verifica se o token não está presente
+    if (!token) {
+      setErrorMessage('Você precisa estar autenticado para realizar esta ação!');
+      return;
+    }
+
     try {
       // Enviando os dados do formulário para o backend usando o Axios
       const response = await axios.post(
         `${process.env.REACT_APP_API_URL}/tenants`, // URL da API de inquilinos
-        formData
+        formData,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}` // Envia o token no cabeçalho da requisição
+          }
+        }
       );
 
       // Caso a requisição seja bem-sucedida

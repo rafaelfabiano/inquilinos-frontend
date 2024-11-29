@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js';
+import { useNavigate } from 'react-router-dom';  // Importando para redirecionamento
 import './styles/TenantInfos.css'; // Importando os estilos
 
 // Registrando os componentes do Chart.js
@@ -12,14 +13,33 @@ const TenantInfos = () => {
   const [inadimplentes, setInadimplentes] = useState([]);
   const [porcentagemInadimplentes, setPorcentagemInadimplentes] = useState(0);
   const [porcentagemNaoInadimplentes, setPorcentagemNaoInadimplentes] = useState(0);
+  
+  const navigate = useNavigate();  // Hook de navegação
+  const token = localStorage.getItem('token'); // Obter o token JWT do localStorage
+
+  // Verifica se o usuário está autenticado, se não redireciona para login
+  useEffect(() => {
+    if (!token) {
+      navigate('/');  // Redireciona para a página de login
+    }
+  }, [token, navigate]);
 
   // Função para buscar os inquilinos
   const fetchTenants = async () => {
+    if (!token) {
+      return;  // Se não houver token, não faz a requisição
+    }
+    
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tenants`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tenants`, {
+        headers: {
+          'Authorization': `Bearer ${token}` // Envia o token no cabeçalho da requisição
+        }
+      });
       setTenants(response.data); // Armazenando os inquilinos
     } catch (error) {
       console.error('Erro ao buscar os inquilinos:', error);
+      alert('Erro ao buscar os dados dos inquilinos. Verifique sua autenticação.');
     }
   };
 
@@ -40,7 +60,7 @@ const TenantInfos = () => {
 
   useEffect(() => {
     fetchTenants();
-  }, []);
+  }, [token]);  // Faz a requisição sempre que o token mudar
 
   useEffect(() => {
     if (tenants.length > 0) {
@@ -81,7 +101,6 @@ const TenantInfos = () => {
 
   return (
     <div className="dashboard-container">
-
       <div className="dashboard-content">
         <section className="chart-section">
           <div className="pie-chart-container">

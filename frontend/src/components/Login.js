@@ -34,9 +34,11 @@ function Login() {
         password,
       });
 
-      // Sucesso: Redireciona para o dashboard e armazena o token
+      // Sucesso: Armazenando o token no localStorage
       localStorage.setItem('token', response.data.token);
-      navigate('/dashboard'); // Redireciona para o Dashboard
+
+      // Redirecionando para o Dashboard após o login
+      navigate('/dashboard');
     } catch (err) {
       // Define a mensagem de erro baseada na resposta do backend
       setErrorMessage(
@@ -47,8 +49,8 @@ function Login() {
   };
 
   return (
-    <div className="form-container">
-      <h2>{!showCreateUserForm ? 'Login' : 'Criar Usuário'}</h2>
+   <div className="form-container">
+       <h2>{!showCreateUserForm ? 'Login' : 'Criar Usuário'}</h2>
 
       {/* Formulário de Login */}
       {!showCreateUserForm ? (

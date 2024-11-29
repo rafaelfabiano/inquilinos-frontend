@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importando o hook de navegação
 import axios from 'axios';
 import EditTenantForm from './EditTenantForm'; // Importando o componente de edição
 import './styles/Table.css';
@@ -14,17 +15,41 @@ const ViewTenantTable = () => {
   const [editingTenant, setEditingTenant] = useState(null);
   const [editedTenant, setEditedTenant] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate(); // Usando o hook useNavigate para redirecionamento
+
+  // Verificar se o usuário está logado ao carregar o componente
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Se não houver token, redireciona para o login
+      navigate('/');  // Redireciona para a página de login
+    } else {
+      // Se houver token, buscar dados dos inquilinos
+      fetchTenants();
+    }
+  }, [navigate]); // Reexecuta o useEffect caso o `navigate` ou o token mude
 
   const fetchTenants = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tenants`);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('Usuário não autenticado. Token não encontrado.');
+      }
+  
+      // Incluir o token no cabeçalho da requisição
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/tenants`, {
+        headers: {
+          'Authorization': `Bearer ${token}` // Enviar token JWT no cabeçalho
+        }
+      });
+  
       setTenants(response.data);
       setFilteredTenants(response.data);
     } catch (error) {
       console.error('Erro ao buscar os inquilinos:', error);
+      alert('Erro ao buscar os inquilinos. Verifique a autenticação.');
     }
   };
-
   const applyFilters = () => {
     let filteredData = tenants;
 
@@ -63,20 +88,38 @@ const ViewTenantTable = () => {
 
   const saveEditedTenant = async () => {
     try {
+      // Verificando se o token de autenticação está presente no localStorage
+      const token = localStorage.getItem('authToken');
+      
+      if (!token) {
+        alert("Você precisa estar logado para atualizar um inquilino.");
+        return;
+      }
+  
+      // Checando se todos os campos necessários foram preenchidos
       if (!editedTenant.name || !editedTenant.cpf || !editedTenant.kitnetSize || !editedTenant.rentValue) {
         alert("Por favor, preencha todos os campos.");
         return;
       }
-
-      const response = await axios.put(`${process.env.REACT_APP_API_URL}/tenants`, editedTenant);
-
+  
+      // Configuração do cabeçalho com o token de autenticação
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`, // Adicionando o token no cabeçalho da requisição
+        },
+      };
+  
+      // Enviando a requisição PUT para o backend com os dados do inquilino
+      const response = await axios.put(`${process.env.REACT_APP_API_URL}/tenants`, editedTenant, config);
+  
+      // Atualizando a lista de inquilinos com a resposta
       const updatedTenant = response.data;
       const updatedTenants = tenants.map((tenant) =>
         tenant.cpf === updatedTenant.cpf ? updatedTenant : tenant
       );
-      setTenants(updatedTenants);
-      setFilteredTenants(updatedTenants);
-
+      setTenants(updatedTenants); // Atualizando a lista de inquilinos
+      setFilteredTenants(updatedTenants); // Atualizando a lista filtrada de inquilinos
+  
       alert('Inquilino atualizado com sucesso!');
       closeEditModal(); // Fecha o modal de edição
     } catch (error) {
@@ -84,6 +127,8 @@ const ViewTenantTable = () => {
       alert("Erro ao salvar as informações.");
     }
   };
+  
+
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
@@ -94,10 +139,6 @@ const ViewTenantTable = () => {
     setIsModalOpen(false);
     setEditingTenant(null); // Limpa os dados de edição
   };
-
-  useEffect(() => {
-    fetchTenants();
-  }, []);
 
   useEffect(() => {
     applyFilters();
