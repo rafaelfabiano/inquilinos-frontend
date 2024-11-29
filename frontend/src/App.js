@@ -27,8 +27,6 @@ function App() {
             }
           />
         </Routes>
-
-        <Footer /> {/* Rodapé visível em todas as rotas */}
       </div>
     </Router>
   );

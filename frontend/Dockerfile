@@ -16,8 +16,8 @@ RUN npm install
 # Copiar o restante do código-fonte para dentro do contêiner
 COPY . .
 
-# Expor a porta 3000, que é a porta padrão do React
-EXPOSE 3000
+# Expor a porta 80 para WebSocket e HTTP
+EXPOSE 80
 
 # Definir o comando para rodar a aplicação em modo de desenvolvimento
 CMD ["npm", "start"]
