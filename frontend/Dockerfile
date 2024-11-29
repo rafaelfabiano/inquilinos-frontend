@@ -7,6 +7,9 @@ WORKDIR /app
 # Copiar os arquivos package.json e package-lock.json para o diretório de trabalho
 COPY package*.json ./
 
+# Adicionar a dependência necessária explicitamente
+RUN npm install @babel/plugin-proposal-private-property-in-object --save-dev
+
 # Instalar as dependências do projeto
 RUN npm install
 
