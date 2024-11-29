@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'; // Importando o hook de navegação
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Importando js-cookie para manipulação de cookies
 import EditTenantForm from './EditTenantForm'; // Importando o componente de edição
 import './styles/Table.css';
 
@@ -19,7 +20,7 @@ const ViewTenantTable = () => {
 
   // Verificar se o usuário está logado ao carregar o componente
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token');  // Substituindo localStorage por Cookies
     if (!token) {
       // Se não houver token, redireciona para o login
       navigate('/');  // Redireciona para a página de login
@@ -31,7 +32,7 @@ const ViewTenantTable = () => {
 
   const fetchTenants = async () => {
     try {
-      const token = localStorage.getItem('token');
+      const token = Cookies.get('token');  // Substituindo localStorage por Cookies
       if (!token) {
         throw new Error('Usuário não autenticado. Token não encontrado.');
       }
@@ -50,6 +51,7 @@ const ViewTenantTable = () => {
       alert('Erro ao buscar os inquilinos. Verifique a autenticação.');
     }
   };
+
   const applyFilters = () => {
     let filteredData = tenants;
 
@@ -88,9 +90,8 @@ const ViewTenantTable = () => {
 
   const saveEditedTenant = async () => {
     try {
-      // Verificando se o token de autenticação está presente no localStorage
-      const token = localStorage.getItem('authToken');
-      
+      const token = Cookies.get('token'); // Substituindo localStorage por Cookies
+
       if (!token) {
         alert("Você precisa estar logado para atualizar um inquilino.");
         return;
@@ -127,8 +128,6 @@ const ViewTenantTable = () => {
       alert("Erro ao salvar as informações.");
     }
   };
-  
-
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;

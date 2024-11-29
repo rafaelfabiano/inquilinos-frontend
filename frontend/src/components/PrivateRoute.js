@@ -1,8 +1,10 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 const PrivateRoute = ({ children }) => {
-  const token = localStorage.getItem('token');
+  // Ler o token do cookie
+  const token = Cookies.get('token');  // Obtém o token do cookie
 
   // Se não houver token, redireciona para o login
   if (!token) {

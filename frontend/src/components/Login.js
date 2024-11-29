@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Para fazer requisições à API
 import CreateUserForm from './CreateUserForm';
+import Cookies from 'js-cookie'; // Para manipular os cookies
 import './styles/Form.css';
 
 function Login() {
@@ -34,8 +35,8 @@ function Login() {
         password,
       });
 
-      // Sucesso: Armazenando o token no localStorage
-      localStorage.setItem('token', response.data.token);
+      // Sucesso: Armazenando o token nos cookies
+      Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'Strict' });
 
       // Redirecionando para o Dashboard após o login
       navigate('/dashboard');
@@ -49,8 +50,8 @@ function Login() {
   };
 
   return (
-   <div className="form-container">
-       <h2>{!showCreateUserForm ? 'Login' : 'Criar Usuário'}</h2>
+    <div className="form-container">
+      <h2>{!showCreateUserForm ? 'Login' : 'Criar Usuário'}</h2>
 
       {/* Formulário de Login */}
       {!showCreateUserForm ? (

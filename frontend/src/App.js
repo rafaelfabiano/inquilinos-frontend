@@ -14,10 +14,10 @@ function App() {
         <Header /> {/* Cabeçalho visível em todas as rotas */}
 
         <Routes>
-          {/* Definindo a rota de login */}
+          {/* Rota pública para Login */}
           <Route path="/" element={<Login />} />
 
-          {/* Definindo a rota do Dashboard, protegida pela PrivateRoute */}
+          {/* Rota protegida para Dashboard, usando PrivateRoute */}
           <Route
             path="/dashboard"
             element={
@@ -28,6 +28,7 @@ function App() {
           />
         </Routes>
 
+        <Footer /> {/* Rodapé visível em todas as rotas */}
       </div>
     </Router>
   );
