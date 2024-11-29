@@ -1,0 +1,123 @@
+/* Estilo geral da tabela */
+.table-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #333;
+  }
+  
+  /* Estilo dos filtros */
+  .filters {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .filters input,
+  .filters select {
+    padding: 8px;
+    margin: 5px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    width: 200px;
+  }
+  
+  .filters input:focus,
+  .filters select:focus {
+    border-color: #5cb85c;
+    outline: none;
+  }
+  
+  .clear-filters-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .clear-filters-btn:hover {
+    background-color: #e04343;
+  }
+  
+  /* Estilo da tabela */
+  .tenant-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .tenant-table th,
+  .tenant-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border: 1px solid #ddd;
+    font-size: 14px;
+  }
+  
+  .tenant-table th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+  }
+  
+  .tenant-table td {
+    background-color: #fff;
+  }
+  
+  .tenant-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .tenant-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .tenant-table td {
+    text-align: center;
+  }
+  
+  .tenant-table td:first-child,
+  .tenant-table th:first-child {
+    text-align: left;
+  }
+  
+  .tenant-table td:last-child,
+  .tenant-table th:last-child {
+    text-align: right;
+  }
+  
+  /* Mensagem quando não há dados */
+  .tenant-table td[colspan="5"] {
+    text-align: center;
+    color: #777;
+    font-size: 16px;
+  }
+  
+  /* Responsividade */
+  @media screen and (max-width: 768px) {
+    .filters {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .filters input,
+    .filters select {
+      width: 100%;
+    }
+  
+    .tenant-table th,
+    .tenant-table td {
+      padding: 10px;
+    }
+  }
+  

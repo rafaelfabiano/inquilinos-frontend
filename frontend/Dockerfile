@@ -1,29 +1,29 @@
-# Etapa 1: Construir a aplicação (build)
+# Etapa 1: Usando Node.js para construir o aplicativo
 FROM node:18 AS build
 
 # Definir o diretório de trabalho dentro do contêiner
 WORKDIR /app
 
-# Copiar o arquivo package.json e package-lock.json da pasta 'frontend' para o contêiner
-COPY frontend/package*.json ./
+# Copiar os arquivos package.json e package-lock.json para o diretório de trabalho
+COPY package*.json ./
 
-# Instalar as dependências da aplicação
+# Instalar as dependências do projeto
 RUN npm install
 
-# Copiar todos os arquivos da pasta 'frontend' para o contêiner
-COPY frontend/ ./
+# Copiar todo o código-fonte da aplicação para o contêiner
+COPY . .
 
-# Rodar o build da aplicação React
+# Construir a aplicação React
 RUN npm run build
 
-# Etapa 2: Servir a aplicação com um servidor estático
+# Etapa 2: Usando Nginx para servir a aplicação construída
 FROM nginx:alpine
 
-# Copiar os arquivos do build da aplicação React para o diretório do Nginx
+# Copiar os arquivos de build da etapa anterior para o diretório do Nginx
 COPY --from=build /app/build /usr/share/nginx/html
 
-# Expor a porta 80 para acesso à aplicação
+# Expor a porta 80 para que o Nginx possa servir a aplicação
 EXPOSE 80
 
-# Iniciar o servidor Nginx para servir a aplicação
+# Iniciar o Nginx no contêiner
 CMD ["nginx", "-g", "daemon off;"]
