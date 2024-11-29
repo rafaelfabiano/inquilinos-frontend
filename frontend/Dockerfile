@@ -7,6 +7,9 @@ WORKDIR /app
 # Copiar os arquivos de dependência package.json e package-lock.json para o contêiner
 COPY package*.json ./
 
+# Instalar a dependência específica do Babel manualmente
+RUN npm install --save-dev @babel/plugin-proposal-private-property-in-object
+
 # Instalar as dependências
 RUN npm install
 
