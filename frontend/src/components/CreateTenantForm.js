@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios'; // Importando o Axios
+import Cookies from 'js-cookie'; // Importando js-cookie para pegar o token
 import './styles/Form.css'; // Certifique-se de que o estilo está correto
 
 const CreateTenantForm = () => {
@@ -48,8 +49,8 @@ const CreateTenantForm = () => {
       return;
     }
 
-    // Obtendo o token do localStorage
-    const token = localStorage.getItem('token');
+    // Obtendo o token do cookie
+    const token = Cookies.get('token');
 
     // Verifica se o token não está presente
     if (!token) {

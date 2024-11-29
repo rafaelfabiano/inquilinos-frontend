@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from 'chart.js';
 import { useNavigate } from 'react-router-dom';  // Importando para redirecionamento
+import Cookies from 'js-cookie'; // Importando js-cookie para pegar o token do cookie
 import './styles/TenantInfos.css'; // Importando os estilos
 
 // Registrando os componentes do Chart.js
@@ -15,7 +16,7 @@ const TenantInfos = () => {
   const [porcentagemNaoInadimplentes, setPorcentagemNaoInadimplentes] = useState(0);
   
   const navigate = useNavigate();  // Hook de navegação
-  const token = localStorage.getItem('token'); // Obter o token JWT do localStorage
+  const token = Cookies.get('token'); // Obter o token JWT do cookie usando js-cookie
 
   // Verifica se o usuário está autenticado, se não redireciona para login
   useEffect(() => {
