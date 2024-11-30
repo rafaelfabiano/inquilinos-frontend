@@ -10,7 +10,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
+  
   const navigate = useNavigate();
 
   // Alternar entre os formulários de login e criação de usuário
@@ -38,8 +38,10 @@ function Login() {
       // Sucesso: Armazenando o token nos cookies
       Cookies.set('token', response.data.token, { expires: 7, secure: true, sameSite: 'Strict' });
 
-      // Redirecionando para o Dashboard após o login
-      navigate('/dashboard');
+      // Espera o token ser salvo nos cookies antes de navegar
+      setTimeout(() => {
+        navigate('/dashboard');
+      }, 100); // Espera um pouco para garantir que o token foi gravado antes de redirecionar
     } catch (err) {
       // Define a mensagem de erro baseada na resposta do backend
       setErrorMessage(

@@ -6,6 +6,7 @@ import TenantInfos from './TenantInfos';
 import Sidebar from './Sidebar';
 import Header from './Header';
 import Footer from './Footer';
+import Cookies from 'js-cookie'; // Para ler o cookie
 import './styles/Dashboard.css';
 
 function Dashboard() {
@@ -14,10 +15,11 @@ function Dashboard() {
 
   // Verificar se o usuário está logado ao carregar o componente
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = Cookies.get('token'); // Verifica o token nos cookies
+
     if (!token) {
-      // Se não houver token, redireciona para o login
-      navigate('/');  // Redireciona para a página de login
+      // Se não houver token, redireciona para a página de login
+      navigate('/');  // Redireciona para o login
     }
   }, [navigate]); // Reexecuta o useEffect quando o componente for montado
 
@@ -43,7 +45,6 @@ function Dashboard() {
           {renderContent()} {/* Exibe o conteúdo baseado na opção */}
         </div>
       </div>
-      
     </div>
   );
 }
