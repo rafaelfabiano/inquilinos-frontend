@@ -24,7 +24,7 @@ O projeto **inquilinos-frontend** é uma aplicação web desenvolvida para geren
 
 1. Clone o repositório:
     ```bash
-    git clone https://github.com/seu-usuario/inquilinos-frontend.git
+    git clone https://github.com/rafaelfabiano/inquilinos-frontend.git
     ```
 2. Navegue até o diretório do projeto:
     ```bash
