@@ -10,8 +10,7 @@ O projeto **inquilinos-frontend** é uma aplicação web desenvolvida para geren
 - Visualização de lista de inquilinos
 - Adição de novos inquilinos
 - Edição de informações de inquilinos existentes
-- Exclusão de inquilinos
-- Visualização de propriedades associadas a cada inquilino
+- Gráficos com dados de adiplentes e inadiplentes
 
 ## Tecnologias Utilizadas
 
