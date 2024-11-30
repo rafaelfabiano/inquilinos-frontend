@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, closeEditModal }) => {
-  // Função para tratar a mudança no valor do aluguel (para formatar corretamente o valor)
+  // Função para tratar a mudança no valor do aluguel e substituir vírgula por ponto
   const handleRentValueChange = (e) => {
-    // Substitui a vírgula por ponto para garantir que o valor seja formatado corretamente
-    const value = e.target.value.replace(',', '.');
-    
-    // Atualiza o valor do aluguel no estado do componente
-    handleEditChange(e, value);
+    const { name, value } = e.target;
+
+    if (name === 'rentValue') {
+      // Substitui imediatamente a vírgula por ponto no valor
+      const formattedValue = value.replace(',', '.');
+      // Atualiza o estado chamando a função handleEditChange
+      handleEditChange(e, formattedValue); 
+    } else {
+      // Para outros campos, atualiza o valor normalmente
+      handleEditChange(e, value); 
+    }
   };
 
   return (
@@ -67,6 +73,7 @@ const EditTenantForm = ({ editedTenant, handleEditChange, saveEditedTenant, clos
             required
           />
         </div>
+
         <div className="form-group">
           <button type="submit">Salvar</button>
           <button type="button" onClick={closeEditModal}>Cancelar</button>

@@ -89,16 +89,16 @@ const ViewTenantTable = () => {
 
   const saveEditedTenant = async () => {
     try {
-      const token = Cookies.get('token');
-
+      const token = Cookies.get('token'); // Substituindo localStorage por Cookies
+  
       if (!token) {
         alert("Você precisa estar logado para atualizar um inquilino.");
         return;
       }
   
-      // Checando se todos os campos necessários foram preenchidos
-      if (!editedTenant.name || !editedTenant.cpf || !editedTenant.kitnetSize || !editedTenant.rentValue) {
-        alert("Por favor, preencha todos os campos.");
+      // Verifica se todos os campos necessários foram preenchidos
+      if (!editedTenant.name || !editedTenant.cpf || !editedTenant.kitnetSize || !editedTenant.rentValue || isNaN(editedTenant.rentValue)) {
+        alert("Por favor, preencha todos os campos corretamente.");
         return;
       }
   
@@ -127,6 +127,7 @@ const ViewTenantTable = () => {
       alert("Erro ao salvar as informações.");
     }
   };
+  
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
