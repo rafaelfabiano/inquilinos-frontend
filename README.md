@@ -17,7 +17,6 @@ O projeto **inquilinos-frontend** é uma aplicação web desenvolvida para geren
 - **React**: Biblioteca JavaScript para construção de interfaces de usuário
 - **Redux**: Biblioteca para gerenciamento de estado
 - **Axios**: Cliente HTTP para realizar requisições à API
-- **Bootstrap**: Framework CSS para estilização da aplicação
 
 ## Como Executar o Projeto
 
