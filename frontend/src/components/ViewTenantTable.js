@@ -20,19 +20,18 @@ const ViewTenantTable = () => {
 
   // Verificar se o usuário está logado ao carregar o componente
   useEffect(() => {
-    const token = Cookies.get('token');  // Substituindo localStorage por Cookies
+    const token = Cookies.get('token');  
     if (!token) {
-      // Se não houver token, redireciona para o login
       navigate('/');  // Redireciona para a página de login
     } else {
-      // Se houver token, buscar dados dos inquilinos
-      fetchTenants();
+      fetchTenants();  // Se houver token, buscar dados dos inquilinos
     }
   }, [navigate]); // Reexecuta o useEffect caso o `navigate` ou o token mude
+  
 
   const fetchTenants = async () => {
     try {
-      const token = Cookies.get('token');  // Substituindo localStorage por Cookies
+      const token = Cookies.get('token');  
       if (!token) {
         throw new Error('Usuário não autenticado. Token não encontrado.');
       }
@@ -90,7 +89,7 @@ const ViewTenantTable = () => {
 
   const saveEditedTenant = async () => {
     try {
-      const token = Cookies.get('token'); // Substituindo localStorage por Cookies
+      const token = Cookies.get('token');
 
       if (!token) {
         alert("Você precisa estar logado para atualizar um inquilino.");
