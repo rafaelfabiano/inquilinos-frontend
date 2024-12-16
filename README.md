@@ -1,6 +1,3 @@
-# Aplicação disponível em:
-https://beanalytic.rafaelfabiano.com.br/
-
 ## Descrição do Projeto
 
 O projeto **inquilinos-frontend** é uma aplicação web desenvolvida para gerenciar informações de inquilinos e propriedades. Ele fornece uma interface amigável para que os usuários possam visualizar, adicionar, editar e excluir dados relacionados a inquilinos e suas respectivas propriedades.
@@ -38,3 +35,6 @@ O projeto **inquilinos-frontend** é uma aplicação web desenvolvida para geren
     ```
 
 A aplicação estará disponível em `http://localhost:3000`.
+
+## DOTENV
+REACT_APP_API_URL=http://localhost:5000/api
